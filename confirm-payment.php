@@ -240,6 +240,18 @@
             </div>
           </div>
           <div class="confirm-payment-container07">
+
+          <div id="confirm_payment_alert" class="confirm-payment-container80">
+              <h4 id="text-confirm" class="confirm-payment-text07">
+                Compra efectuada com êxito.
+              </h4>
+            </div>
+
+            <div id="check_email_alert" class="confirm-payment-container90">
+              <h4 id="text-alert" class="confirm-payment-text08">
+                Consulte o seu email para mais detalhes.
+              </h4>
+            </div>
             
             <div class="confirm-payment-container08">
               <span class="confirm-payment-text7">Métodos de pagamento</span>
@@ -523,14 +535,23 @@ function confirmar_pagamento(){
             success: function(response){
 
               if(response  !== '' && response  === 'saved'){
-                  alert("Compra bem sucedida. Os detalhes da compra estao no email"); 
-                
+                  //alert("Compra bem sucedida. Os detalhes da compra estao no email"); 
+                  document.getElementById('confirm_payment_alert').style.display="flex";
+                  //document.getElementById('check_email_alert').textContent = "Consulte o seu email para mais detalhes";
+                  document.getElementById('check_email_alert').style.display="flex";
+
                 }else if(response =="not_saved"){
-                    alert("Falha ao efetuar a compra. Verifique se preencheu correctamente os dados");
+                  document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";
+                  document.getElementById('check_email_alert').style.display="flex";
+                  document.getElementById('confirm_payment_alert').style.display="none";
 
                 }else if(response =="session_unset"){
-                  alert('Faça o login primeiro');
-                  window.location.href = 'loginregistar.php';
+                  document.getElementById('check_email_alert').textContent="Registe-se e Incie a sessão para efectuar a compra.";
+                  document.getElementById('check_email_alert').style.display="flex";
+
+                  //Redirect after 5s
+                  setTimeout(redirectToIndex, 5000);
+                
                 }
             },
             error: function(xhr, status, error){
@@ -538,9 +559,15 @@ function confirmar_pagamento(){
             }
           });
           }else {
-            alert('Informe o numero de telefone');
+            document.getElementById('check_email_alert').textContent="Informe o número de telefone";
+            document.getElementById('check_email_alert').style.display="flex";
             document.getElementById('numero_tel').focus();
           }
+          }
+
+          //method to redirect to another page
+          function redirectToIndex() {
+            window.location.href = 'loginregistar.php';
           }
 
 
