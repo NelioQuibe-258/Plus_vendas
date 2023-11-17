@@ -535,13 +535,14 @@ function confirmar_pagamento(){
                     list_itens: list_itens
                   },
             success: function(response){
-              
+            
               if(response  !== '' && response  === 'saved'){
-                  alert("Compra bem sucedida. Os detalhes da compra estao no email"); 
+              
+                document.getElementById('confirm_payment_alert').style.display="flex";
+                document.getElementById('check_email_alert').style.display="flex";
                   
                   list_itens.forEach(element => {
                     
-                  
                     // Nome do produto que você deseja remover
                     const nomeProdutoARemover = element.image; // Nome do produto que deseja remover
 
