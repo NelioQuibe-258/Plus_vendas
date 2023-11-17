@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
+
 require 'vendor/autoload.php';
 require('database/User.php');
 $user_object = new User;
@@ -94,13 +101,109 @@ if(isset($_POST['action']) && $_POST['action'] == "confirmar"){
         $merchat_object->set_total($_POST['total']);
         $merchat_object->set_telefone($_POST['telefone']);
         $merchat_object->set_product_owner($_SESSION['email']);
+        $merchat_object->set_product_list(json_encode($_POST['list_itens']));
+        $arrayLocal = $_POST['list_itens'];
 
+        $list_itens= $arrayLocal; 
+        //echo $_POST['list_itens'];'
+
+        $listar = '';
+        
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configurações do servidor SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'qmz2023@gmail.com';
+            $mail->Password = 'txntrdkbofxvaqax';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 25;
+
+            // Remetente e destinatário
+            $mail->setFrom('qmz2023@gmail.com', 'PLUS VENDAS');
+            $mail->addAddress($_SESSION['email'], 'Destinatário');
+
+            // Conteúdo do e-mail
+            $mail->isHTML(true);
+            $mail->Subject = 'Plus vendas';
+            $cont = 0;
+            foreach($list_itens as $row){
+                $cont += 1;
+                $listar .='<p style="text-align:center"><img src="cid:minha_imagem'.$cont.'" width="30%" alt="Produto"/></p>
+                           <p style="text-align:center"><strong>Nome do Produto:</strong> '.$row['nome'].'</p>
+                           <p style="text-align:center"><strong>Preço do Produto:</strong> '.$row['preco'].'MT'
+                           .'<p style="text-align:center">=============['.$cont.']=============</p>';
     
-        if($merchat_object->save_merchant()){
+                           // Anexando a imagem como embutida
+                $caminhoDaImagem = $row['image']; // Substitua pelo caminho real da sua imagem
+                $mail->addEmbeddedImage($caminhoDaImagem, 'minha_imagem'.$cont);
+            }
+
+            // Corpo do e-mail em HTML
+            $message = '
+            <h3 style="text-align:center">Agradecemos por fazer compras na nossa loja</h3>
+            <p style="text-align:center">Este é o email de confirmação dos produtos adquiridos na nossa loja.</p>
+            '.$listar.'
+            <br/><br/>
+            <p style="text-align:center">_______________________________________________</p>
+            <p style="text-align:center"><strong> Subtotal:</strong> '.$merchat_object->get_subtotal().'</p>
+            <p style="text-align:center"><strong> Taxa:</strong> '.$merchat_object->get_tax().'</p>
+            <p style="text-align:center"><strong> Total:</strong> '.$merchat_object->get_total().'</p>
+              <p><h3>Obrigado pela preferencia!</h3></p>
+              <p><h3>Plus Vendas 2023</h3></p>
+        ';
+
+            $mail->Body = $message;
+            $mail->AltBody = 'Cada vez Mais proximos de ti';
+
+            
+
+            // Enviando e-mail
+            $mail->send();
+            if($merchat_object->save_merchant()){
                 echo "saved";
-        }else {
-            echo "not_saved";
+            }else {
+                echo "not_saved";
+            }
+        } catch (Exception $e) {
+            echo "Erro ao enviar o e-mail: {$mail->ErrorInfo}";
         }
+
+
+
+        
+    
+        // $to_mail = $_SESSION['email'];
+        //     $subject = 'Plus vendas';
+        //     $body = '<h3 style="text-align:center">Agradecemos por fazer compras na nossa loja</h3>
+        //     <p style="text-align:center">Este é o email de confirmação dos produtos adquiridos na nossa loja.</p>
+        //     '.$listar.'
+        //     <p></p>
+        //     <p style="text-align:center"><strong> Subtotal:</strong> '.$merchat_object->get_subtotal().'</p>
+        //     <p style="text-align:center"><strong> Taxa:</strong> '.$merchat_object->get_tax().'</p>
+        //     <p style="text-align:center"><strong> Total:</strong> '.$merchat_object->get_total().'</p>
+        //       <p><h3>Obrigado pela preferencia!</h3></p>
+        //       <p><h3>Plus Vendas 2023</h3></p>
+        // ';
+        // $headers = 'From: qmz2023@gmail.com' . "\r\n" .
+        // 'Reply-To: qmz2023@gmail.com' . "\r\n" .
+        // 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+            
+        //     // ini_set("SMTP", "localhost");
+        //     // ini_set("smtp_port", 25);
+            
+        //     if (mail($to_mail, $subject, $body, $headers)) {
+        //         if($merchat_object->save_merchant()){
+        //             echo "saved";
+        //         }else {
+        //             echo "not_saved";
+        //         }
+        //     } else {
+        //         echo 'NO';
+        //     }
 
    }else {
         echo "session_unset";

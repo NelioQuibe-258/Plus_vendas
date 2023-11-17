@@ -9,6 +9,8 @@ class Merchant {
     private $total;
     private $product_owner;
     private $telefone;
+    private $list_itens;
+    private $connect;
 
 
 
@@ -23,6 +25,9 @@ class Merchant {
 
 
         //**SETTER */
+    public function set_product_list($list_itens){
+        $this->list_itens = $list_itens;
+    }
     public function set_subtotal($subtotal) {
         $this->subtotal = $subtotal;
     }
@@ -66,7 +71,7 @@ class Merchant {
 
     public function save_merchant() {
         $query = "
-		INSERT INTO merchant (subtotal, tax, total, product_owner, telefone) VALUES (:subtotal, :tax, :total, :product_owner, :telefone)
+		INSERT INTO merchant (subtotal, tax, total, product_owner, telefone, lista_produtos) VALUES (:subtotal, :tax, :total, :product_owner, :telefone, :lista_produto)
 		";
 		$statement = $this->connect->prepare($query);
 
@@ -79,6 +84,8 @@ class Merchant {
         $statement->bindParam(':product_owner', $this->product_owner);
 
         $statement->bindParam(':telefone', $this->telefone);
+        
+        $statement->bindParam(':lista_produto', $this->list_itens);
 
 
 		if($statement->execute())
