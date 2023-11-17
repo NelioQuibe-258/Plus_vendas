@@ -718,20 +718,22 @@
   <script>
     function adicionarAoCarrinho(icon, nomeProduto, precoProduto) {
         // Obtém o carrinho atual da localStorage
+
         let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-        
+        var check = true;
+  
         if (carrinho.length > 0) {
            // O carrinho não está vazio
           carrinho.forEach(item => {
-            if(item.icon = icon){
+            if(item['image'] == icon){
               alert(nomeProduto + " Já existe no carrinho!");
+              check = false;
             }
             
           });
-        } else {
+        } 
+        if(check){
           
-        
-
           // Adiciona o novo produto ao carrinho
           carrinho.push({ image: icon, nome: nomeProduto, preco: precoProduto });
 
@@ -740,6 +742,7 @@
           alert(nomeProduto + " Adicionado ao carrinho com êxito!");
           carrinhaCheckOut1();
         }
+        
     }
 
     function carrinhaCheckOut1(){
@@ -766,7 +769,7 @@
     //carrinhaCheckOut();
     
     
-    localStorage.clear();
+    //localStorage.clear();
     
   </script>
   </body>

@@ -10,6 +10,7 @@ function atualizarCarrinho() {
     const subtotal_to_pay = document.getElementById('subtotal_to_pay');
     const subtotall = document.getElementById('subtotal');
     let meus_itens = JSON.parse(localStorage.getItem('meus_itens')) || [];
+    
     if (carrinho.length > 0) {
 
             const carrinhoLista = document.getElementById('cart-pricing');
@@ -113,7 +114,25 @@ function atualizarCarrinho() {
                         subtotal_to_pay.textContent = (parseFloat(subtotal_to_pay.textContent) - parseFloat(cardH2.textContent.substring(2))).toFixed(2);
                         subtotall.textContent = (parseFloat(subtotall.textContent) - parseFloat(cardH2.textContent.substring(2))).toFixed(2);
                         subtotal -= parseFloat(cardH2.textContent.substring(2)).toFixed(2);
-                        localStorage.removeItem(item[index]);
+                        // Recupere o carrinho do localStorage
+                        let carrinho1 = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+                        // Nome do produto que você deseja remover
+                        const nomeProdutoARemover = item.image; // Nome do produto que deseja remover
+
+                        // Encontre o índice do item com base no nome do produto
+                        const indiceProduto = carrinho1.findIndex(items => items.image === nomeProdutoARemover);
+
+                        // Se o produto for encontrado, remova-o do carrinho
+                        if (indiceProduto !== -1) {
+                            carrinho1.splice(indiceProduto, 1);
+                            
+                            // Atualize o localStorage com o carrinho atualizado
+                            localStorage.setItem('carrinho', JSON.stringify(carrinho1));
+                        } else {
+                            console.log('Produto não encontrado no carrinho.');
+                        }
+
                     }
                 });
                 

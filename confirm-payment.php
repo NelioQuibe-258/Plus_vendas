@@ -519,9 +519,10 @@ function confirmar_pagamento(){
             var subtotal = document.getElementById('subtotal').textContent;
             var taxa = document.getElementById('tax_value').textContent;
             var total = document.getElementById('total').textContent;
-
+            let list_itens = JSON.parse(localStorage.getItem('carrinho')) || [];
+          
           if(telefone != "") {
-    
+            
           $.ajax({
             method: "POST",
             url: "action.php",
@@ -530,16 +531,39 @@ function confirmar_pagamento(){
                     telefone: telefone,
                     subtotal: subtotal,
                     taxa: taxa,
-                    total: total
+                    total: total,
+                    list_itens: list_itens
                   },
             success: function(response){
-
+              
               if(response  !== '' && response  === 'saved'){
-                  //alert("Compra bem sucedida. Os detalhes da compra estao no email"); 
-                  document.getElementById('confirm_payment_alert').style.display="flex";
-                  //document.getElementById('check_email_alert').textContent = "Consulte o seu email para mais detalhes";
-                  document.getElementById('check_email_alert').style.display="flex";
+                  alert("Compra bem sucedida. Os detalhes da compra estao no email"); 
+                  
+                  list_itens.forEach(element => {
+                    
+                  
+                    // Nome do produto que você deseja remover
+                    const nomeProdutoARemover = element.image; // Nome do produto que deseja remover
 
+                    // Encontre o índice do item com base no nome do produto
+                    const indiceProduto = list_itens.findIndex(items => items.image === nomeProdutoARemover);
+                    
+
+                    // Se o produto for encontrado, remova-o do carrinho
+                    if (indiceProduto !== -1) {
+                        list_itens.splice(indiceProduto, 1);
+                        
+                        // Atualize o localStorage com o carrinho atualizado
+                        localStorage.setItem('carrinho', JSON.stringify(list_itens));
+                    } else {
+                        console.log('Produto não encontrado no carrinho.');
+                    }
+
+                    
+                });
+
+                
+                
                 }else if(response =="not_saved"){
                   document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";
                   document.getElementById('check_email_alert').style.display="flex";
@@ -556,6 +580,7 @@ function confirmar_pagamento(){
             },
             error: function(xhr, status, error){
               console.error(xhr);
+              
             }
           });
           }else {
