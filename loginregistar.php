@@ -618,8 +618,6 @@ $.ajax({
           senha: senha
         },
   success: function(response){
-
-    alert(response);
     
     if(response  !== '' && response  == "ACTIVE"){
         document.getElementById("access_granted_alert").style.display = 'flex';
