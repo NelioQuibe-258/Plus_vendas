@@ -549,9 +549,16 @@ function confirmar_pagamento(){
 
                     
                 });
+                //subtotal
+                document.getElementById("subtotal").textContent = "MT 0.00";
 
-                
-                
+                //taxa
+                document.getElementById("tax_value").textContent =  "MT 0.00";
+
+                document.getElementById("total").textContent = "MT 0.00";
+                const url = 'https://e2payments.explicador.co.mz/docs';
+                window.open(url, '_blank');
+                             
                 }else if(response =="not_saved"){
                     alert("Falha ao efetuar a compra. Verifique se preencheu correctamente os dados");
 
