@@ -6,8 +6,8 @@ function carrinhaCheckOut(){
     carrinho.forEach((item, index) => {
     const cart_money = document.getElementById('money');
       const qtynr = document.getElementById('qtynr');
-      index += 1;
-      qtynr.textContent = index;
+      
+      qtynr.textContent = index + 1;
 
       if (parseInt(qtynr.textContent) > 0 ) {
         document.getElementById('qty').style.display = 'inline';
@@ -19,4 +19,3 @@ function carrinhaCheckOut(){
     });
   }
 }
-carrinhaCheckOut();

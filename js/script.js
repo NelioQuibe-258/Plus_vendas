@@ -1,3 +1,4 @@
+//import { carrinhaCheckOut } from "./headerScript";
 // Obtém o carrinho da localStorage
 const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 var qty = 0;
@@ -52,7 +53,7 @@ function atualizarCarrinho() {
                 const cardH2 = document.createElement('h2');
                 cardH2.classList.add('cart-text04');
                 cardH2.textContent = item.preco;
-                subtotal += parseFloat(cardH2.textContent.substring(2));
+                subtotal += parseFloat(item.preco);
                 cardCont1.appendChild(cardH2);
 
                 const cardCont2 = document.createElement('div');
@@ -132,6 +133,7 @@ function atualizarCarrinho() {
                         } else {
                             console.log('Produto não encontrado no carrinho.');
                         }
+                        carrinhaCheckOut();
 
                     }
                 });
@@ -166,6 +168,28 @@ function atualizarCarrinho() {
 }
 // Chama a função inicialmente
 atualizarCarrinho();
+
+export function carrinhaCheckOut(){
+        
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  
+    if (carrinho.length > 0) {
+      carrinho.forEach((item, index) => {
+      const cart_money = document.getElementById('money');
+        const qtynr = document.getElementById('qtynr');
+        
+        qtynr.textContent = index + 1;
+  
+        if (parseInt(qtynr.textContent) > 0 ) {
+          document.getElementById('qty').style.display = 'inline';
+        } else {
+          document.getElementById('qty').style.display = 'none';
+        }
+  
+        cart_money.textContent = (parseFloat(cart_money.textContent) + parseFloat(item.preco.substring(2))).toFixed(2);
+      });
+    }
+  }
 
 // Chama a função a cada 2 segundos (2000 milissegundos)
 //setInterval(atualizarCarrinho, 2000);

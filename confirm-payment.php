@@ -570,7 +570,7 @@ function confirmar_pagamento(){
 
                 document.getElementById("total").textContent = "MT 0.00";
                 const url = 'https://e2payments.explicador.co.mz/docs';
-                window.open(url, '_blank');
+                window.location.href = url;
                              
                 }else if(response =="not_saved"){
                   document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";

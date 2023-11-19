@@ -428,14 +428,15 @@
     var valor_pagar = document.getElementById('subtotal_to_pay');
 
 
-var dados = { qtd_itens:qtd_itens.textContent, valor_pagar:valor_pagar.textContent };
+    var dados = { qtd_itens:qtd_itens.textContent, valor_pagar:valor_pagar.textContent };
 
-// Convertendo os dados em uma string JSON e codificando para URL
-var dadosCodificados = encodeURIComponent(JSON.stringify(dados));
+    // Convertendo os dados em uma string JSON e codificando para URL
+    var dadosCodificados = encodeURIComponent(JSON.stringify(dados));
 
-// Redirecionando para a segunda página com os dados na URL
-window.location.href = 'confirm-payment.php?dados=' + dadosCodificados;
+    // Redirecionando para a segunda página com os dados na URL
+    window.location.href = 'confirm-payment.php?dados=' + dadosCodificados;
 
-}
-
+    }
+    
+      
 </script>
