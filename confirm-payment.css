@@ -1034,6 +1034,7 @@
 .confirm-payment-button {
   color: var(--dl-color-gray-white);
   width: 80%;
+  height: 34px;
   align-self: center;
   margin-top: var(--dl-space-space-oneandhalfunits);
   font-family: "Montserrat";
@@ -1045,4 +1046,5 @@
 
 .confirm-payment-button:hover {
   background-color: rgb(2, 26, 52);
+
 }

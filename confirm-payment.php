@@ -530,6 +530,9 @@ session_start();
     //AJAX
 function confirmar_pagamento(){
 
+            
+
+
             var telefone = document.getElementById('numero_tel').value;
             var subtotal = document.getElementById('subtotal').textContent;
             var taxa = document.getElementById('tax_value').textContent;
@@ -537,6 +540,15 @@ function confirmar_pagamento(){
             let list_itens = JSON.parse(localStorage.getItem('carrinho')) || [];
           
           if(telefone != "") {
+
+            document.getElementById('submit_button').style.height="34px";
+            
+            document.getElementById('submit_button').textContent="";
+            document.getElementById('submit_button').style.backgroundPosition = 'center';
+            document.getElementById('submit_button').style.backgroundRepeat= 'no-repeat';
+            document.getElementById('submit_button').style.backgroundImage="url('img/transparent.gif')";
+            document.getElementById('submit_button').style.backgroundPosition = 'center';
+            document.getElementById('submit_button').style.backgroundRepeat= 'no-repeat';
             
           $.ajax({
             method: "POST",

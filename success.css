@@ -24,6 +24,7 @@
   font-family: "Montserrat";
   margin-bottom: var(--dl-space-space-oneandhalfunits);
   background-color: #eaeded;
+  color: #65B42E;
 }
 .success-text1 {
   color: rgba(235, 150, 25, 0.82);
