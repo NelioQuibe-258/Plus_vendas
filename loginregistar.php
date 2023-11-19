@@ -1,7 +1,4 @@
-<?php
-  //session_unset();
-  
-?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -605,6 +602,13 @@
 var utilizador= $("input[name='username_input']").val();
 var senha= $("input[name='password_input']").val();
 
+const variavel = getParameterByName('id');
+
+const subtotal = getParameterByName('subtotal');
+const taxa = getParameterByName('taxa');
+const total = getParameterByName('total');
+const telefone = getParameterByName('telefone');
+
 
 if(utilizador != "" && senha != "") {
   document.getElementById("fill_inputs_alert_login").style.display = 'none';
@@ -615,7 +619,12 @@ $.ajax({
   data: {
           action: "logar",
           utilizador: utilizador,
-          senha: senha
+          senha: senha,
+          variavel: variavel,
+          subtotal: subtotal,
+          taxa: taxa,
+          total: total,
+          telefone: telefone
         },
   success: function(response){
     
@@ -624,6 +633,14 @@ $.ajax({
         document.getElementById("fill_fields_alert").style.display = 'none';
       
        
+      }else if(response == "back_to_payment"){
+        document.getElementById("access_granted_alert").style.display = 'flex';
+        document.getElementById("fill_inputs_alert_login").textContent = 'Será redirecionado para a página de pagamentos em alguns segundos.';
+        document.getElementById("fill_inputs_alert_login").style.display = 'flex';
+
+            //Redirect after 5s
+            setTimeout(redirectToIndex, 5000);
+
       }else if(response == "NON-EXIST"){
         document.getElementById("fill_inputs_alert_login").textContent = "Credenciais inválidas.";
         document.getElementById("fill_inputs_alert_login").style.display = 'flex';
@@ -642,6 +659,20 @@ $.ajax({
 
   }
 }
+
+function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+      const results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function redirectToIndex() {
+            window.location.href = 'confirm-payment.php';
+          }
 
       
 
