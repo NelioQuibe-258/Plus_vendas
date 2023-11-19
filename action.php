@@ -9,7 +9,10 @@ require 'PHPMailer-master/src/SMTP.php';
 
 require 'vendor/autoload.php';
 require('database/User.php');
+require "database/Merchant.php";
 $user_object = new User;
+
+$merchat_object = new Merchant();
 
 	// use PHPMailer\PHPMailer\PHPMailer;
 	// use PHPMailer\PHPMailer\SMTP;
@@ -63,10 +66,16 @@ if(isset($_POST['action']) && $_POST['action'] == "registar")
 	}
 }
 
-if(isset($_POST['action']) && $_POST['action'] == "logar"){
-    
+if(isset($_POST['action']) && $_POST['action'] == "logar"){ 
+  
+  
     $user_object->set_email($_POST['utilizador']);
     $user_object->set_password($_POST['senha']);
+
+    $merchat_object->set_subtotal($_POST['subtotal']);
+    $merchat_object->set_tax($_POST['taxa']);
+    $merchat_object->set_total($_POST['total']);
+    $merchat_object->set_telefone($_POST['telefone']);
 
     $user_data = $user_object->login();
    
@@ -78,6 +87,17 @@ if(isset($_POST['action']) && $_POST['action'] == "logar"){
             }else if($row['status'] == "Activo"){
                 $_SESSION['email'] = $user_object->get_user_email();
 
+                if(isset($_POST['variavel']) && $_POST['variavel'] == "confirmPayment"){
+                    
+                    $_SESSION['subtotal'] = $merchat_object->get_subtotal();
+                    $_SESSION['taxa'] = $merchat_object->get_tax();
+                    $_SESSION['total'] = $merchat_object->get_total();
+                    $_SESSION['telefone'] = $merchat_object->get_telefone();
+
+                    echo  "back_to_payment";
+                    break;
+                }
+                
                 echo "ACTIVE";
                 break;
             }
@@ -90,11 +110,8 @@ if(isset($_POST['action']) && $_POST['action'] == "logar"){
 
 /*confirmar pagamento*/
 if(isset($_POST['action']) && $_POST['action'] == "confirmar"){
-    
+
     if(isset($_SESSION['email'])) {
-        
-        require_once "database/Merchant.php";
-        $merchat_object = new Merchant();
         
         $merchat_object->set_subtotal($_POST['subtotal']);
         $merchat_object->set_tax($_POST['taxa']);
@@ -103,6 +120,7 @@ if(isset($_POST['action']) && $_POST['action'] == "confirmar"){
         $merchat_object->set_product_owner($_SESSION['email']);
         $merchat_object->set_product_list(json_encode($_POST['list_itens']));
         $arrayLocal = $_POST['list_itens'];
+
 
         $list_itens= $arrayLocal; 
         //echo $_POST['list_itens'];'
@@ -206,7 +224,8 @@ if(isset($_POST['action']) && $_POST['action'] == "confirmar"){
         //     }
 
    }else {
-        echo "session_unset";
+
+     echo "session_unset";
    } 
 
 }

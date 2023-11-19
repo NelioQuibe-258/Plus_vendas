@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,6 +65,7 @@
     </style>
   </head>
   <body>
+  
     <link rel="stylesheet" href="./style.css" />
     <div>
       <link href="./confirm-payment.css" rel="stylesheet" />
@@ -228,15 +233,24 @@
             </div>
             <div class="confirm-payment-container04">
               <span class="confirm-payment-text1">Subtotal:</span>
-              <span class="confirm-payment-text2" id="subtotal">0</span>
+
+              <span class="confirm-payment-text2" id="subtotal">
+                <?php if(isset($_SESSION['subtotal'])){ echo $_SESSION['subtotal'];}else{ echo "0";}?>
+              </span>
             </div>
             <div class="confirm-payment-container05">
               <span class="confirm-payment-text3" id="tax">Taxa:</span>
-              <span class="confirm-payment-text4" id="tax_value">0</span>
+              
+              <span class="confirm-payment-text4" id="tax_value">
+                  <?php if(isset($_SESSION['taxa'])){ echo $_SESSION['taxa'];}else{ echo "0";}?>
+              </span>
             </div>
             <div class="confirm-payment-container06">
               <span class="confirm-payment-text5">Total:</span>
-              <span class="confirm-payment-text6" id="total">0</span>
+
+              <span class="confirm-payment-text6" id="total">
+                  <?php if(isset($_SESSION['total'])){ echo $_SESSION['total'];}else{ echo "0";}?>
+              </span>
             </div>
           </div>
           <div class="confirm-payment-container07">
@@ -287,6 +301,7 @@
                   class="confirm-payment-textinput input"
                   name="numero_tel"
                   id="numero_tel"
+                  value = "<?php if(isset($_SESSION['telefone'])){ echo $_SESSION['telefone']; }else {}?>"
                 />
                 <button type="button" id="submit_button" onclick="confirmar_pagamento()" class="confirm-payment-button button">
                   Confirmar
@@ -515,6 +530,9 @@
     //AJAX
 function confirmar_pagamento(){
 
+            
+
+
             var telefone = document.getElementById('numero_tel').value;
             var subtotal = document.getElementById('subtotal').textContent;
             var taxa = document.getElementById('tax_value').textContent;
@@ -522,6 +540,15 @@ function confirmar_pagamento(){
             let list_itens = JSON.parse(localStorage.getItem('carrinho')) || [];
           
           if(telefone != "") {
+
+            document.getElementById('submit_button').style.height="34px";
+            
+            document.getElementById('submit_button').textContent="";
+            document.getElementById('submit_button').style.backgroundPosition = 'center';
+            document.getElementById('submit_button').style.backgroundRepeat= 'no-repeat';
+            document.getElementById('submit_button').style.backgroundImage="url('img/transparent.gif')";
+            document.getElementById('submit_button').style.backgroundPosition = 'center';
+            document.getElementById('submit_button').style.backgroundRepeat= 'no-repeat';
             
           $.ajax({
             method: "POST",
@@ -538,8 +565,9 @@ function confirmar_pagamento(){
             
               if(response  !== '' && response  === 'saved'){
               
-                document.getElementById('confirm_payment_alert').style.display="flex";
-                document.getElementById('check_email_alert').style.display="flex";
+                window.location.href = 'success.html';
+                //document.getElementById('confirm_payment_alert').style.display="flex";
+                //document.getElementById('check_email_alert').style.display="flex";
                   
                   list_itens.forEach(element => {
                     
@@ -600,7 +628,12 @@ function confirmar_pagamento(){
 
           //method to redirect to another page
           function redirectToIndex() {
-            window.location.href = 'loginregistar.php';
+            var telefone = document.getElementById('numero_tel').value;
+            var subtotal = document.getElementById('subtotal').textContent;
+            var taxa = document.getElementById('tax_value').textContent;
+            var total = document.getElementById('total').textContent;
+
+            window.location.href = 'loginregistar.php?id=confirmPayment&subtotal=' + subtotal+ '&taxa=' + taxa +'&total=' + total + '&telefone=' + telefone;
           }
 
 
