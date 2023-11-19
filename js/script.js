@@ -10,7 +10,7 @@ function atualizarCarrinho() {
     const qtd_items = document.getElementById('qtd_items');
     const subtotal_to_pay = document.getElementById('subtotal_to_pay');
     const subtotall = document.getElementById('subtotal');
-    let meus_itens = JSON.parse(localStorage.getItem('meus_itens')) || [];
+    
     
     if (carrinho.length > 0) {
 
@@ -53,7 +53,7 @@ function atualizarCarrinho() {
                 const cardH2 = document.createElement('h2');
                 cardH2.classList.add('cart-text04');
                 cardH2.textContent = item.preco;
-                subtotal += parseFloat(item.preco);
+                subtotal = parseFloat(subtotal) + parseFloat(item.preco.substring(2));
                 cardCont1.appendChild(cardH2);
 
                 const cardCont2 = document.createElement('div');
@@ -133,12 +133,18 @@ function atualizarCarrinho() {
                         } else {
                             console.log('Produto não encontrado no carrinho.');
                         }
+                        
+                        let total = sessionStorage.getItem('total');
+                        total = (parseFloat(total) - parseFloat(cardH2.textContent.substring(2))).toFixed(2);
+                        sessionStorage.setItem('total', total);
+
                         carrinhaCheckOut();
 
                     }
                 });
                 
                 cardButtonLess.addEventListener("click", function() {
+                  if(parseInt(cardInput1.value) > 1){
                     qtd_items_to_pay.textContent = parseInt(qtd_items_to_pay.textContent) - 1;
                     qtd_items.textContent = parseInt(qtd_items.textContent) - 1;
                     subtotal_to_pay.textContent = (parseFloat(subtotal_to_pay.textContent) - parseFloat(cardInput5.value.substring(2))).toFixed(2);
@@ -146,6 +152,11 @@ function atualizarCarrinho() {
                     subtotal -= parseFloat(cardInput5.value.substring(2)).toFixed(2);
                     cardH2.textContent ='MT' + (parseFloat(cardH2.textContent.substring(2)) - parseFloat(cardInput5.value.substring(2))).toFixed(2);
                     cardInput1.value = parseInt(cardInput1.value) - 1;
+                    let total = sessionStorage.getItem('total');
+                    total = (parseFloat(total) - parseFloat(cardInput5.value.substring(2))).toFixed(2);
+                    sessionStorage.setItem('total', total);
+                    carrinhaCheckOut();
+                  }
                 });
 
                 // Função para decrementar o valor
@@ -157,11 +168,16 @@ function atualizarCarrinho() {
                     subtotal += parseFloat(cardInput5.value.substring(2)).toFixed(2);
                     cardH2.textContent = 'MT' + (parseFloat(cardH2.textContent.substring(2)) + parseFloat(cardInput5.value.substring(2))).toFixed(2);
                     cardInput1.value = parseInt(cardInput1.value) + 1;
+                    let total = sessionStorage.getItem('total');
+                    total = (parseFloat(total) + parseFloat(cardInput5.value.substring(2))).toFixed(2);
+                    sessionStorage.setItem('total', total);
+                    carrinhaCheckOut();
                 });
 
             });
             qtd_items_to_pay.textContent = qty;
             qtd_items.textContent = qty;
+            alert(subtotal);
             subtotal_to_pay.textContent = subtotal.toFixed(2);
             subtotall.textContent = subtotal.toFixed(2);
     }
@@ -169,27 +185,14 @@ function atualizarCarrinho() {
 // Chama a função inicialmente
 atualizarCarrinho();
 
-export function carrinhaCheckOut(){
-        
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-  
-    if (carrinho.length > 0) {
-      carrinho.forEach((item, index) => {
-      const cart_money = document.getElementById('money');
-        const qtynr = document.getElementById('qtynr');
-        
-        qtynr.textContent = index + 1;
-  
-        if (parseInt(qtynr.textContent) > 0 ) {
-          document.getElementById('qty').style.display = 'inline';
-        } else {
-          document.getElementById('qty').style.display = 'none';
-        }
-  
-        cart_money.textContent = (parseFloat(cart_money.textContent) + parseFloat(item.preco.substring(2))).toFixed(2);
-      });
-    }
-  }
+function carrinhaCheckOut(){
+      
+  const cart_money = document.getElementById('money');
+    
+  cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
+}
+
+carrinhaCheckOut();
 
 // Chama a função a cada 2 segundos (2000 milissegundos)
 //setInterval(atualizarCarrinho, 2000);

@@ -597,8 +597,13 @@ function confirmar_pagamento(){
                 document.getElementById("tax_value").textContent =  "MT 0.00";
 
                 document.getElementById("total").textContent = "MT 0.00";
+                
+                sessionStorage.setItem('total', '0');
+                carrinhaCheckOut();
                 const url = 'https://e2payments.explicador.co.mz/docs';
-                window.location.href = url;
+
+                //Abordagem 2 API de terceiros descomente e teste
+                //window.location.href = url;
                              
                 }else if(response =="not_saved"){
                   document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";
@@ -635,6 +640,14 @@ function confirmar_pagamento(){
 
             window.location.href = 'loginregistar.php?id=confirmPayment&subtotal=' + subtotal+ '&taxa=' + taxa +'&total=' + total + '&telefone=' + telefone;
           }
+
+          function carrinhaCheckOut(){
+              
+              const cart_money = document.getElementById('money');
+                
+              cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
+          }
+    
 
 
 </script>

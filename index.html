@@ -373,7 +373,7 @@
                 </h2>
               </a>
               <span class="home-text26">MT36,826.23</span>
-              <button type="button" class="home-button04 button" onclick="adicionarAoCarrinho('public/external/laptops-7n4v5aa-39933178806485_400x-300x300-1400w.webp','HP Notebook 255 G8 Ryzen5 3500U Notebook','MT36,826.23')">
+              <button type="button" class="home-button04 button" onclick="adicionarAoCarrinho('public/external/laptops-7n4v5aa-39933178806485_400x-300x300-1400w.webp','HP Notebook 255 G8 Ryzen5 3500U Notebook','MT36826.23')">
                 Adiciona ao carinho
               </button>
             </div>
@@ -718,6 +718,7 @@
     
   <script src="js/headerScript.js">  </script>
   <script>
+    
     function adicionarAoCarrinho(icon, nomeProduto, precoProduto) {
         // Obtém o carrinho atual da localStorage
 
@@ -738,6 +739,10 @@
           
           // Adiciona o novo produto ao carrinho
           carrinho.push({ image: icon, nome: nomeProduto, preco: precoProduto });
+          let total = sessionStorage.getItem('total');
+          total = parseFloat(total) + parseFloat(precoProduto.substring(2));
+          
+          sessionStorage.setItem('total', total);
 
           // Salva o carrinho atualizado na localStorage
           localStorage.setItem('carrinho', JSON.stringify(carrinho));
@@ -748,31 +753,33 @@
     }
 
     function carrinhaCheckOut1(){
-        
+      
+      const cart_money = document.getElementById('money');  
+      cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
+      console.log(parseFloat(sessionStorage.getItem('total')).toFixed(2));
       const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
 
       if (carrinho.length > 0) {
         carrinho.forEach((item, index) => {
-        const cart_money = document.getElementById('money');
+        
           const qtynr = document.getElementById('qtynr');
           
-          qtynr.textContent = (index + 1);
+          qtynr.textContent = index + 1;
 
           if (parseInt(qtynr.textContent) > 0 ) {
             document.getElementById('qty').style.display = 'inline';
           } else {
             document.getElementById('qty').style.display = 'none';
           }
-
-          cart_money.textContent = (parseFloat(cart_money.textContent) + parseFloat(item.preco.substring(2))).toFixed(2);
         });
       }
+
     }
     //carrinhaCheckOut();
     
     
     //localStorage.clear();
-    
+    //sessionStorage.setItem('total','0');
   </script>
   </body>
 </html>

@@ -1,10 +1,13 @@
 function carrinhaCheckOut(){
-        
+  const cart_money = document.getElementById('money');
   const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-
+  if(!sessionStorage.getItem('total')){
+    sessionStorage.setItem('total', '0');
+  }
+  let total = 0;
   if (carrinho.length > 0) {
     carrinho.forEach((item, index) => {
-    const cart_money = document.getElementById('money');
+    
       const qtynr = document.getElementById('qtynr');
       
       qtynr.textContent = index + 1;
@@ -14,8 +17,10 @@ function carrinhaCheckOut(){
       } else {
         document.getElementById('qty').style.display = 'none';
       }
-
-      cart_money.textContent = (parseFloat(cart_money.textContent) + parseFloat(item.preco.substring(2))).toFixed(2);
+      total =(parseFloat(total) + parseFloat(item.preco.substring(2))).toFixed(2);
     });
+    sessionStorage.setItem('total', total);
   }
+  cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
 }
+carrinhaCheckOut();
