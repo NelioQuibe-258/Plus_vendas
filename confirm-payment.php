@@ -565,7 +565,7 @@ function confirmar_pagamento(){
             
               if(response  !== '' && response  === 'saved'){
               
-                window.location.href = 'success.html';
+                
                 //document.getElementById('confirm_payment_alert').style.display="flex";
                 //document.getElementById('check_email_alert').style.display="flex";
                   
@@ -598,9 +598,13 @@ function confirmar_pagamento(){
 
                 document.getElementById("total").textContent = "MT 0.00";
                 
+                localStorage.clear();
+
                 sessionStorage.setItem('total', '0');
+                
                 carrinhaCheckOut();
-                const url = 'https://e2payments.explicador.co.mz/docs';
+                //const url = 'https://e2payments.explicador.co.mz/docs';
+                window.location.href = 'success.html';
 
                 //Abordagem 2 API de terceiros descomente e teste
                 //window.location.href = url;
