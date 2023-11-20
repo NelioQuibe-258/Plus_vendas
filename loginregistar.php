@@ -253,7 +253,7 @@
                 <span class="loginregistar-text08">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 id="password_input"
                 class="loginregistar-textinput1 input"
                 name="password_input"
@@ -264,7 +264,7 @@
               </div> -->
 
               <button
-                id="signIn_btn"
+                id="submit_login"
                 type="button"
                 class="loginregistar-button button"
                 onclick="login()"
@@ -324,7 +324,7 @@
                   <span class="loginregistar-text21">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   id="new_password_input"
                   class="loginregistar-textinput4 input"
                   name="new_password_input"
@@ -562,12 +562,22 @@
   /*Registar*/
      function save_data(){
 
+
       var utilizador= $("input[name='new_username_input']").val();
       var email= $("input[name='new_email_input']").val();
       var senha= $("input[name='new_password_input']").val();
 
       if(utilizador != "" && email != "" && senha != "") {
         document.getElementById("fill_fields_alert").style.display = 'none';
+
+            document.getElementById('registar_button').style.height="34px";
+            document.getElementById('registar_button').style.width="97.44px";
+            document.getElementById('registar_button').textContent="";
+            document.getElementById('registar_button').style.backgroundPosition = 'center';
+            document.getElementById('registar_button').style.backgroundRepeat= 'no-repeat';
+            document.getElementById('registar_button').style.backgroundImage="url('img/transparent.gif')";
+            document.getElementById('registar_button').style.backgroundPosition = 'center';
+            document.getElementById('registar_button').style.backgroundRepeat= 'no-repeat';
     
       $.ajax({
         method: "POST",
@@ -583,10 +593,24 @@
           if(response  !== '' && response  === 'YES'){
               document.getElementById("access_register_alert").style.display = 'flex';
               document.getElementById("fill_fields_alert").style.display = 'none';
+              document.getElementById('registar_button').style.backgroundImage="none";
+              document.getElementById('registar_button').textContent="Registar";
+              document.getElementById('registar_button').style.color="#fff";
+              document.getElementById('registar_button').style.fontWeight="bold";
+
              
-            }else{
-              document.getElementById("access_register_alert").style.display = 'none';
+            }else if(response == 'EXISTS'){
+              document.getElementById("fill_fields_alert").textContent = "O email já existe.";
+              document.getElementById("fill_fields_alert").style.display = 'flex';
+
+              document.getElementById('registar_button').style.backgroundImage="none";
+              document.getElementById('registar_button').textContent="Registar";
+              document.getElementById('registar_button').style.color="#fff";
+              document.getElementById('registar_button').style.fontWeight="bold";
+
             
+            }else {
+                document.getElementById("access_register_alert").style.display = 'none';
             }
         },
         error: function(xhr, status, error){
@@ -641,6 +665,15 @@ $.ajax({
         document.getElementById("access_granted_alert").style.display = 'flex';
         document.getElementById("fill_inputs_alert_login").textContent = 'Será redirecionado para a página de pagamentos em alguns segundos.';
         document.getElementById("fill_inputs_alert_login").style.display = 'flex';
+
+          document.getElementById('submit_login').style.height="34.36px";
+            document.getElementById('submit_login').style.width="78.48px";
+            document.getElementById('submit_login').textContent="";
+            document.getElementById('submit_login').style.backgroundPosition = 'center';
+            document.getElementById('submit_login').style.backgroundRepeat= 'no-repeat';
+            document.getElementById('submit_login').style.backgroundImage="url('img/transparent.gif')";
+            document.getElementById('submit_login').style.backgroundPosition = 'center';
+            document.getElementById('submit_login').style.backgroundRepeat= 'no-repeat';
 
             //Redirect after 5s
             setTimeout(redirectToIndex, 5000);

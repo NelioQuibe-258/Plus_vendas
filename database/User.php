@@ -169,4 +169,32 @@ class User {
 		}
 		return $user_data;
 	}
+
+	function fetch_data() {
+		$query = "
+		SELECT * FROM user WHERE email =:user_email
+		";
+
+		$statement = $this->connect->prepare($query);
+
+		$statement->bindParam(':user_email', $this->user_email);
+
+		if($statement->execute())
+		{
+			$user_data = $statement->fetchAll(PDO::FETCH_ASSOC);
+		}
+		return $user_data;
+	}
+
+	// function results() {
+	// 	$result = $this->fecth_data();
+	// 	$row_count = mysql_num_rows($result);
+	// 	if($row_count > 0) {
+	// 		return true;
+	// 	}else {
+	// 		return false;
+	// 	}
+	// }
+
+
 }
