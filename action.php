@@ -35,7 +35,10 @@ if(isset($_POST['action']) && $_POST['action'] == "registar")
 	$user_object->set_status('Inactivo');
 
     $user_object->setUserVerificationCode(md5(uniqid()));
+    $results = $user_object->fetch_data();
+    
 
+    if(count($results) <= 0) {
 
 	if($user_object->save_data()) {
 
@@ -64,6 +67,10 @@ if(isset($_POST['action']) && $_POST['action'] == "registar")
 	}else {
 		echo 'NO';
 	}
+}else {
+    echo 'EXISTS';
+}
+    
 }
 
 if(isset($_POST['action']) && $_POST['action'] == "logar"){ 

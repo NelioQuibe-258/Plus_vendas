@@ -253,7 +253,7 @@
                 <span class="loginregistar-text08">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 id="password_input"
                 class="loginregistar-textinput1 input"
                 name="password_input"
@@ -324,7 +324,7 @@
                   <span class="loginregistar-text21">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   id="new_password_input"
                   class="loginregistar-textinput4 input"
                   name="new_password_input"
@@ -599,9 +599,18 @@
               document.getElementById('registar_button').style.fontWeight="bold";
 
              
-            }else{
-              document.getElementById("access_register_alert").style.display = 'none';
+            }else if(response == 'EXISTS'){
+              document.getElementById("fill_fields_alert").textContent = "O email já existe.";
+              document.getElementById("fill_fields_alert").style.display = 'flex';
+
+              document.getElementById('registar_button').style.backgroundImage="none";
+              document.getElementById('registar_button').textContent="Registar";
+              document.getElementById('registar_button').style.color="#fff";
+              document.getElementById('registar_button').style.fontWeight="bold";
+
             
+            }else {
+                document.getElementById("access_register_alert").style.display = 'none';
             }
         },
         error: function(xhr, status, error){
