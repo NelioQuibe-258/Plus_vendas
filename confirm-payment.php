@@ -604,6 +604,7 @@ function confirmar_pagamento(){
 
                 //Abordagem 2 API de terceiros descomente e teste
                 //window.location.href = url;
+                window.location.href = 'success.html';
                              
                 }else if(response =="not_saved"){
                   document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";

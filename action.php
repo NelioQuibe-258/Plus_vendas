@@ -44,7 +44,7 @@ if(isset($_POST['action']) && $_POST['action'] == "registar")
             $subject = 'Plus vendas - validacão por email';
             $body = '<h3 style="text-align:center">Agradecemos por fazer compras na nossa loja</h3>
             <p style="text-align:center">Este é o email de verificação, por favor click no link abaixo para activar o seu registo.</p>
-             <p style="text-align:center"><a href="https://98ed-41-220-201-124.ngrok-free.app/Plus_vendas/plus_vendas/verify.php?code='.$user_object->getUserVerificationCode().'">Clique aqui para verificar</a></p>
+             <p style="text-align:center"><a href="https://460f-41-220-201-121.ngrok-free.app/plus_vendas/verify.php?code='.$user_object->getUserVerificationCode().'">Clique aqui para verificar</a></p>
               <p><h3>Obrigado!</h3></p>
               <p><h3>Plus Vendas 2023</h3></p>
         ';
