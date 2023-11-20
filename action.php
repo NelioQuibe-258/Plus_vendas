@@ -69,9 +69,9 @@ if(isset($_POST['action']) && $_POST['action'] == "registar")
 if(isset($_POST['action']) && $_POST['action'] == "logar"){ 
   
   
-    $user_object->set_email($_POST['utilizador']);
+    
     $user_object->set_password($_POST['senha']);
-
+    $user_object->set_email($_POST['utilizador']);
     $merchat_object->set_subtotal($_POST['subtotal']);
     $merchat_object->set_tax($_POST['taxa']);
     $merchat_object->set_total($_POST['total']);
@@ -85,6 +85,7 @@ if(isset($_POST['action']) && $_POST['action'] == "logar"){
                 echo "INACTIVE";
                 break;
             }else if($row['status'] == "Activo"){
+                $user_object->set_email($row['email']);
                 $_SESSION['email'] = $user_object->get_user_email();
 
                 if(isset($_POST['variavel']) && $_POST['variavel'] == "confirmPayment"){

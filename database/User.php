@@ -154,12 +154,13 @@ class User {
 
 	function login() {
 		$query = "
-		SELECT * FROM user WHERE email =:user_email AND password=:user_password
+		SELECT * FROM user WHERE (email =:user_email OR user.user =:user) AND password=:user_password
 		";
 
 		$statement = $this->connect->prepare($query);
 
 		$statement->bindParam(':user_email', $this->user_email);
+		$statement->bindParam(':user', $this->user_email);
 		$statement->bindParam(':user_password', $this->user_password);
 
 		if($statement->execute())
