@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Details-desabled - Massive Light Cassowary</title>
+    <title>Details-desabled - Plus Vendas</title>
     <meta
       property="og:title"
       content="Details-desabled - Massive Light Cassowary"
@@ -801,48 +801,49 @@
         </div>
       </div>
     </div>
-    <script src="js/headerScript.js">
-      // Função para obter parâmetros da URL
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
-      const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
-      const results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
+    <script src="js/headerScript.js"></script>
+      <script>
+          // Função para obter parâmetros da URL
+        function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, '\\$&');
+          const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+          const results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
 
-    // Exemplo de uso para pegar o ID do produto
-    const produtoId = getParameterByName('img');
-    const nomeProduto = getParameterByName('nome');
-    const obj = getParameterByName('obj');
+        // Exemplo de uso para pegar o ID do produto
+        const produtoId = getParameterByName('img');
+        const nomeProduto = getParameterByName('nome');
+        const obj = getParameterByName('obj');
 
-    const featured_image = document.getElementById("featured-image");
-    featured_image.src = produtoId;
+        const featured_image = document.getElementById("featured-image");
+        featured_image.src = produtoId;
 
-    const featured_image1 = document.getElementById("featured-image1");
-    featured_image1.src = produtoId;
+        const featured_image1 = document.getElementById("featured-image1");
+        featured_image1.src = produtoId;
 
-    const featured_image2 = document.getElementById("featured-image2");
-    featured_image2.src = produtoId;
+        const featured_image2 = document.getElementById("featured-image2");
+        featured_image2.src = produtoId;
 
-    const featured_image3 = document.getElementById("featured-image3");
-    featured_image3.src = produtoId;
+        const featured_image3 = document.getElementById("featured-image3");
+        featured_image3.src = produtoId;
 
-    const featured_image4 = document.getElementById("featured-image4");
-    featured_image4.src = produtoId;
+        const featured_image4 = document.getElementById("featured-image4");
+        featured_image4.src = produtoId;
 
 
-    const _obj = document.getElementById("obj");
-    _obj.textContent = obj;
+        const _obj = document.getElementById("obj");
+        _obj.textContent = obj;
 
-    const _nome = document.getElementById("nome");
-    _nome.textContent = nomeProduto;
+        const _nome = document.getElementById("nome");
+        _nome.textContent = nomeProduto;
 
-    console.log(`ID do produto: ${produtoId}`);
-    console.log(`Nome do produto: ${nomeProduto}`);
-    console.log(`Preço do produto: ${precoProduto}`);
+        console.log(`ID do produto: ${produtoId}`);
+        console.log(`Nome do produto: ${nomeProduto}`);
+        console.log(`Preço do produto: ${precoProduto}`);
     </script>
   </body>
 </html>

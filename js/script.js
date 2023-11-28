@@ -138,7 +138,7 @@ function atualizarCarrinho() {
                         total = (parseFloat(total) - parseFloat(cardH2.textContent.substring(2))).toFixed(2);
                         sessionStorage.setItem('total', total);
 
-                        carrinhaCheckOut();
+                        carrinhaCheckOut1();
 
                     }
                 });
@@ -155,7 +155,7 @@ function atualizarCarrinho() {
                     let total = sessionStorage.getItem('total');
                     total = (parseFloat(total) - parseFloat(cardInput5.value.substring(2))).toFixed(2);
                     sessionStorage.setItem('total', total);
-                    carrinhaCheckOut();
+                    carrinhaCheckOut1();
                   }
                 });
 
@@ -171,13 +171,12 @@ function atualizarCarrinho() {
                     let total = sessionStorage.getItem('total');
                     total = (parseFloat(total) + parseFloat(cardInput5.value.substring(2))).toFixed(2);
                     sessionStorage.setItem('total', total);
-                    carrinhaCheckOut();
+                    carrinhaCheckOut1();
                 });
 
             });
             qtd_items_to_pay.textContent = qty;
             qtd_items.textContent = qty;
-            alert(subtotal);
             subtotal_to_pay.textContent = subtotal.toFixed(2);
             subtotall.textContent = subtotal.toFixed(2);
     }
@@ -185,14 +184,14 @@ function atualizarCarrinho() {
 // Chama a função inicialmente
 atualizarCarrinho();
 
-function carrinhaCheckOut(){
+function carrinhaCheckOut1(){
       
   const cart_money = document.getElementById('money');
     
   cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
 }
 
-carrinhaCheckOut();
+carrinhaCheckOut1();
 
 // Chama a função a cada 2 segundos (2000 milissegundos)
 //setInterval(atualizarCarrinho, 2000);

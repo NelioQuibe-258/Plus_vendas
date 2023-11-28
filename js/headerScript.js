@@ -4,7 +4,7 @@ function carrinhaCheckOut(){
   if(!sessionStorage.getItem('total')){
     sessionStorage.setItem('total', '0');
   }
-  let total = 0;
+
   if (carrinho.length > 0) {
     carrinho.forEach((item, index) => {
     
@@ -16,10 +16,8 @@ function carrinhaCheckOut(){
         document.getElementById('qty').style.display = 'inline';
       } else {
         document.getElementById('qty').style.display = 'none';
-      }
-      total =(parseFloat(total) + parseFloat(item.preco.substring(2))).toFixed(2);
-    });
-    sessionStorage.setItem('total', total);
+      } 
+    }); 
   }
   cart_money.textContent = parseFloat(sessionStorage.getItem('total')).toFixed(2);
 }

@@ -1,5 +1,6 @@
 <?php
   //session_unset();
+  //unset($_SESSION['email']);
   
 ?>
 
@@ -9,7 +10,7 @@
     <title>loginregistar - Login/Resgistar</title>
     <meta
       property="og:title"
-      content="loginregistar - Massive Light Cassowary"
+      content="loginregistar - Plus Vendas"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -626,6 +627,7 @@
   /*Login*/
 
   function login(){
+    
 
 var utilizador= $("input[name='username_input']").val();
 var senha= $("input[name='password_input']").val();
@@ -633,6 +635,7 @@ var senha= $("input[name='password_input']").val();
 const variavel = getParameterByName('id');
 
 const subtotal = getParameterByName('subtotal');
+const qtd = getParameterByName('qtd');
 const taxa = getParameterByName('taxa');
 const total = getParameterByName('total');
 const telefone = getParameterByName('telefone');
@@ -652,10 +655,11 @@ $.ajax({
           subtotal: subtotal,
           taxa: taxa,
           total: total,
+          qtd: qtd,
           telefone: telefone
         },
   success: function(response){
-    
+    //alert(response);
     if(response  !== '' && response  == "ACTIVE"){
         document.getElementById("access_granted_alert").style.display = 'flex';
         document.getElementById("fill_fields_alert").style.display = 'none';

@@ -3,6 +3,7 @@
 //verify.php
 
 $error = '';
+$check = false;
 
 session_start();
 
@@ -20,18 +21,19 @@ if(isset($_GET['code']))
 
         if($user_object->enable_user_account())
         {
-            $_SESSION['success_message'] = 'Your Email Successfully verify, now you can login into this chat Application';
+            $_SESSION['success_message'] = 'Seu Email foi verificado com sucesso, agora pode fazer login';
 
-            header('location:index.html');
+            $check = true;
+           //header('location:index.html');
         }
         else
         {
-            $error = 'Something went wrong try again....';
+            $error = 'Algo correu mal tente novamente....';
         }
     }
     else
     {
-        $error = 'Something went wrong try again....';
+        $error = 'Algo correu mal tente novamente....';
     }
 }
 
@@ -44,10 +46,10 @@ if(isset($_GET['code']))
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="verify - Plus Vendas">
     <meta name="author" content="">
 
-    <title>Email Verify | PHP Chat Application using Websocket</title>
+    <title>Verificação de Email  | Plus Vendas</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -64,16 +66,36 @@ if(isset($_GET['code']))
     <div class="containter">
         <br />
         <br />
-        <h1 class="text-center">PHP Chat Application using Websocket</h1>
+        <h1 class="text-center">Plus Vendas usando o Email</h1>
         
         <div class="row justify-content-md-center">
             <div class="col col-md-4 mt-5">
+            <?php if (!empty($error))  {?>
             	<div class="alert alert-danger">
             		<h2><?php echo $error; ?></h2>
             	</div>
+                <?php
+                }
+                ?>
+                <?php if (isset($_SESSION['success_message']))  {?>
+                <div class="alert alert-success">
+            		<h2><?php echo $_SESSION['success_message']. 'Será redirecionado dentro de instantes'; unset($_SESSION['success_message']); ?></h2>
+            	</div>
+                <?php
+                    }   
+                ?>
             </div>
         </div>
     </div>
+    <script>
+        let check = '<?php echo $check; ?>';
+        if(check){
+            setTimeout(function() {
+                window.location.href = 'index.html'; // Substitua com a URL desejada
+            }, 4000); // 4000 milissegundos = 4 segundos
+        } 
+        
+    </script>
 </body>
 
 </html>

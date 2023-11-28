@@ -1,7 +1,7 @@
 <?php
 class Merchant {
     private $product_name;
-    private $qty;
+    private $qtd;
     private $unit_price;
     private $category;
     private $subtotal;
@@ -42,6 +42,10 @@ class Merchant {
     public function set_total($total) {
         $this->total = $total;
     }
+
+    public function set_qtd($qtd) {
+        $this->qtd = $qtd;
+    }
     
     public function set_product_owner($product_owner) {
         $this->product_owner = $product_owner;
@@ -67,6 +71,11 @@ class Merchant {
     public function get_telefone() {
         return $this->telefone;
     }
+
+    public function get_qtd() {
+        return $this->qtd;
+    }
+
     /*save product to database*/
 
     public function save_merchant() {

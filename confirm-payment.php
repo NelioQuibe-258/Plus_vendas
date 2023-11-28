@@ -8,7 +8,7 @@ session_start();
     <title>Confirmar pagamento</title>
     <meta
       property="og:title"
-      content="ConfirmPayment - Massive Light Cassowary"
+      content="ConfirmPayment - Plus Vendas"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -238,6 +238,15 @@ session_start();
                 <?php if(isset($_SESSION['subtotal'])){ echo $_SESSION['subtotal'];}else{ echo "0";}?>
               </span>
             </div>
+
+            <div class="confirm-payment-container04">
+              <span class="confirm-payment-text1">Itens:</span>
+
+              <span class="confirm-payment-text2" id="qtd">
+                <?php if(isset($_SESSION['qtd'])){ echo $_SESSION['qtd'];}else{ echo "0";}?>
+              </span>
+            </div>
+
             <div class="confirm-payment-container05">
               <span class="confirm-payment-text3" id="tax">Taxa:</span>
               
@@ -518,12 +527,17 @@ session_start();
     //subtotal
     document.getElementById("subtotal").textContent = "MT " + listaItens['valor_pagar'];
 
+    //quantidade
+    document.getElementById("qtd").textContent =  "" + listaItens['qtd_itens'];
+
     //taxa
      var taxa = (parseFloat(listaItens['valor_pagar'])  / 100).toFixed(2);
      document.getElementById("tax_value").textContent =  "MT " + taxa;
 
      var total =  (parseFloat(listaItens['valor_pagar']) + parseFloat(taxa)).toFixed(2);
      document.getElementById("total").textContent = "MT " + total;
+     sessionStorage.setItem('total', total);
+     carrinhaCheckOut1();
     }
 
 
@@ -535,6 +549,7 @@ function confirmar_pagamento(){
 
             var telefone = document.getElementById('numero_tel').value;
             var subtotal = document.getElementById('subtotal').textContent;
+            var qtd = document.getElementById('qtd').textContent;
             var taxa = document.getElementById('tax_value').textContent;
             var total = document.getElementById('total').textContent;
             let list_itens = JSON.parse(localStorage.getItem('carrinho')) || [];
@@ -559,6 +574,7 @@ function confirmar_pagamento(){
                     subtotal: subtotal,
                     taxa: taxa,
                     total: total,
+                    qtd: qtd,
                     list_itens: list_itens
                   },
             success: function(response){
@@ -602,13 +618,13 @@ function confirmar_pagamento(){
 
                 sessionStorage.setItem('total', '0');
                 
-                carrinhaCheckOut();
-                //const url = 'https://e2payments.explicador.co.mz/docs';
-                window.location.href = 'success.html';
+                carrinhaCheckOut1();
+                const url = 'https://e2payments.explicador.co.mz/docs';
+                //window.location.href = 'success.html';
 
                 //Abordagem 2 API de terceiros descomente e teste
-                //window.location.href = url;
-                window.location.href = 'success.html';
+                window.location.href = url;
+                
                              
                 }else if(response =="not_saved"){
                   document.getElementById('check_email_alert').textContent = "A operação falhou. Verfique seus dados.";
@@ -640,13 +656,14 @@ function confirmar_pagamento(){
           function redirectToIndex() {
             var telefone = document.getElementById('numero_tel').value;
             var subtotal = document.getElementById('subtotal').textContent;
+            var qtd = document.getElementById('qtd').textContent;
             var taxa = document.getElementById('tax_value').textContent;
             var total = document.getElementById('total').textContent;
 
-            window.location.href = 'loginregistar.php?id=confirmPayment&subtotal=' + subtotal+ '&taxa=' + taxa +'&total=' + total + '&telefone=' + telefone;
+            window.location.href = 'loginregistar.php?id=confirmPayment&subtotal=' + subtotal+ '&qtd=' + qtd + '&taxa=' + taxa +'&total=' + total + '&telefone=' + telefone;
           }
 
-          function carrinhaCheckOut(){
+          function carrinhaCheckOut1(){
               
               const cart_money = document.getElementById('money');
                 

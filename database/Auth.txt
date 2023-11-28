@@ -1,0 +1,30 @@
+9aa01cc3-bc8e-4ef8-8909-1d1507f5701c
+z2EevpmoLs5AmQKMYOCgU3ZfFZW7YTMPUZmWvWsQ
+
+                            {
+  "data": {
+    "success": "Pagamento realizado com sucesso"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "headers": {
+    "cache-control": "no-cache, private",
+    "connection": "keep-alive",
+    "content-type": "application/json",
+    "date": "Fri, 17 Nov 2023 16:08:04 GMT"
+  },
+  "config": {
+    "url": "https://e2payments.explicador.co.mz/v1/c2b/mpesa-payment/943813",
+    "method": "post",
+    "data": "{\"phone\":\"847622858\",\"amount\":\"199\",\"reference\":\"e2PaymentsTest\",\"client_id\":\"93b3d0d9-d5c0-4d84-aa13-2fb18a78a05f\"}",
+    "headers": {
+      "Accept": "application/json",
+      "X-Requested-With": "XMLHttpRequest",
+      "Content-Type": "application/json",
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5M2IzZDBkOS1kNWMwLTRkODQtYWExMy0yZmIxOGE3OGEwNWYiLCJqdGkiOiJhNmE3MDhkYThlNzkzMDFmYmMwZmNkZjU0Y2VlN2EyNThlNzFhYjc4Yzg4ZGNlOTU3OTUwMzA4NTI0NzY5MmYwM2JlOWFiYjhlMzczZTBlYyIsImlhdCI6MTcwMDIzNzI1OS4xOTY1MjcsIm5iZiI6MTcwMDIzNzI1OS4xOTY1MywiZXhwIjoxNzMxODU5NjU5LjE4OTc2MSwic3ViIjoiIiwic2NvcGVzIjpbXX0.SvgfJ5pXrDwjr46fPPKEM8eugabve9EK-4tx9chlVog47U4-ZXG_mTxZ8VYcvwqsqW1Sz8RiDsDGXbQ_dO2AGeXTiM2ZrX2urRavdLaW17aHwK5hzoPhNSvqAJX0KBLXU7pFapEDiPHqTi2KiCFqrCa86lKgOtr2sq126hVzwosEUL3zhLdwPuBcrE-QV0ZpGn9Jx8sDVupC0c6IAtxcrQPxQz0SErET4LXeodqPrYszYIMwlMahdkN3XTwLNH5i-quME43tvbOWWqgW9pL6nR5T1yjaScir2KsYnqGzvK27x7naD1jwPh1QqrQvqk9zjIdI4yO_HctpuOJwfhxaz-Cx_MWAxy2MUYYJQ-Xg3wjkuCXKmCDj1VNcyT8V3F1S42qqNAPEu2xHGnsxWt79u42lobLmdEkqwKi-uOEDOK5dHY1dgTXlSoz0BSyA3fRO9Ws43cHwy_xEGR1BbHPxNk1COPS84IIx7pvO7jVNtfZivDUl9kIQUQvBKhplp1_k0_afvIubygotv9ZdLAXLt76Sb3bryxjSkxc_N1U1S85v3h2FE9q53YjUBG44wkfmo3UbNS90s3OjDgMoSvDRmVtCCRzJsu6BygEdJVbVZl7yPhvA77hthdjd5cr4G_u4Yna4fGC1JacbXNrdEOZ2OBMpzRWJHzaXe0RSNb3YJ_s",
+      "X-XSRF-TOKEN": "eyJpdiI6Ii9BbkJPUFUvR2V2Nm8wbkZIUVAya2c9PSIsInZhbHVlIjoiRWJwZmVaTFdRQ25JdklZSU1OTlQ3S0dOL096ZGQ0eUpmb3kwbHdFVDZHdDBhbVhKYytMVFRtaTJWYWsvZS92NVFaTS94akgvZmd2cGl6N2xRbHgxOXczcStIOGtOYXR4NnVMbCsrdC9peDRMaGg0cjZHc1NMMXhTNGtxK3dESFIiLCJtYWMiOiIyNjIzYTNlYTA2OGJkODUzNzg0ZjYzODA1NzA5Zjc4ZjUxMmM3NjZlMzlhNDdiYzIwZWY2OGQ2ZmUyOWQwOTJjIn0="
+    }
+  },
+  "title": "Teste realizado com sucesso."
+}
+   
